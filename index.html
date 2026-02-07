@@ -360,6 +360,21 @@
         .start-button:active {
             transform: translateY(0);
         }
+
+        /* Audio debug info */
+        .audio-status {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: monospace;
+            z-index: 1000;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -381,11 +396,7 @@
 
     <!-- Background Music -->
     <audio id="bgMusic" loop preload="auto" playsinline>
-        <!-- Romantic Piano Song -->
-        <source src="https://cdn.pixabay.com/audio/2023/12/05/audio_0c95b5c38b.mp3" type="audio/mpeg">
-        <!-- Backup romantic songs -->
-        <source src="https://cdn.pixabay.com/audio/2024/03/12/audio_b88a9b3f15.mp3" type="audio/mpeg">
-        <source src="https://cdn.pixabay.com/audio/2022/05/13/audio_0f0c07e341.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Music Control Button -->
@@ -395,6 +406,9 @@
 
     <!-- Scroll Indicator -->
     <div class="scroll-indicator" id="scrollIndicator" onclick="scrollDown()">⬇️</div>
+
+    <!-- Audio Status (for debugging) -->
+    <div class="audio-status" id="audioStatus">Status: Not loaded</div>
 
     <div class="container">
         <div class="rose-container">
@@ -539,11 +553,44 @@
         const bgMusic = document.getElementById('bgMusic');
         const musicControl = document.getElementById('musicControl');
         const welcomeOverlay = document.getElementById('welcomeOverlay');
+        const audioStatus = document.getElementById('audioStatus');
         let isPlaying = false;
         let hasInteracted = false;
 
         // Set volume
         bgMusic.volume = 0.4;
+
+        // Show audio status for 10 seconds to help debug
+        audioStatus.style.display = 'block';
+        setTimeout(() => {
+            audioStatus.style.display = 'none';
+        }, 10000);
+
+        // Audio event listeners for debugging
+        bgMusic.addEventListener('loadstart', () => {
+            audioStatus.textContent = 'Status: Loading...';
+            console.log('Audio loading started');
+        });
+
+        bgMusic.addEventListener('canplay', () => {
+            audioStatus.textContent = 'Status: Ready to play!';
+            console.log('Audio can play');
+        });
+
+        bgMusic.addEventListener('playing', () => {
+            audioStatus.textContent = 'Status: ✓ Playing!';
+            console.log('Audio is playing');
+        });
+
+        bgMusic.addEventListener('pause', () => {
+            audioStatus.textContent = 'Status: Paused';
+            console.log('Audio paused');
+        });
+
+        bgMusic.addEventListener('error', (e) => {
+            audioStatus.textContent = 'Status: ERROR - ' + e.type;
+            console.error('Audio error:', e);
+        });
 
         // Function to start the experience
         function startExperience() {
@@ -552,9 +599,26 @@
             // Hide welcome overlay
             welcomeOverlay.classList.add('hidden');
             
-            // Start music
+            // Start music with better handling
             setTimeout(() => {
-                playMusic();
+                console.log('Attempting to play music...');
+                bgMusic.load();
+                
+                bgMusic.play()
+                    .then(() => {
+                        console.log('SUCCESS: Music is playing!');
+                        isPlaying = true;
+                        musicControl.classList.add('playing');
+                        musicControl.innerHTML = '🎵';
+                        musicControl.title = 'Pause music';
+                    })
+                    .catch((error) => {
+                        console.error('FAILED to play music:', error);
+                        alert('Music failed to play. Error: ' + error.message + '\n\nPlease click the 🎵 button in top-right corner to start music.');
+                        isPlaying = false;
+                        musicControl.classList.remove('playing');
+                        musicControl.innerHTML = '🔇';
+                    });
             }, 300);
         }
 
@@ -637,23 +701,31 @@
         }
 
         function toggleMusic() {
+            console.log('Toggle music clicked. Current state:', isPlaying);
+            
             if (isPlaying) {
                 bgMusic.pause();
                 musicControl.innerHTML = '🔇';
                 musicControl.classList.remove('playing');
                 musicControl.title = 'Play music';
                 isPlaying = false;
+                console.log('Music paused');
             } else {
-                bgMusic.load(); // Reload for mobile
-                bgMusic.play().then(() => {
-                    musicControl.innerHTML = '🎵';
-                    musicControl.classList.add('playing');
-                    musicControl.title = 'Pause music';
-                    isPlaying = true;
-                }).catch(error => {
-                    console.log('Error playing audio:', error);
-                    alert('Unable to play music. Please try again or check your connection.');
-                });
+                console.log('Attempting to play music...');
+                bgMusic.load();
+                
+                bgMusic.play()
+                    .then(() => {
+                        console.log('SUCCESS: Music started playing!');
+                        musicControl.innerHTML = '🎵';
+                        musicControl.classList.add('playing');
+                        musicControl.title = 'Pause music';
+                        isPlaying = true;
+                    })
+                    .catch(error => {
+                        console.error('ERROR playing music:', error);
+                        alert('Cannot play music.\nError: ' + error.message + '\n\nTry:\n1. Check internet connection\n2. Refresh the page\n3. Enable sound in browser settings');
+                    });
             }
         }
 
