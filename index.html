@@ -383,8 +383,8 @@
         <div class="welcome-content">
             <div class="welcome-rose">🌹</div>
             <h2>Happy Rose Day!</h2>
-            <p style="font-size: 1.2em; margin: 20px 0;">Tap to start your romantic journey</p>
-            <button class="start-button" onclick="startExperience()">Start with Music 🎵</button>
+            <p style="font-size: 1.2em; margin: 20px 0;">Tap to see some lines for you.</p>
+            <button class="start-button" onclick="startExperience()">Click here 🎵</button>
         </div>
     </div>
 
@@ -429,38 +429,6 @@
             <div class="signature">
                 With all my love ❤️
             </div>
-        </div>
-
-        <!-- Additional Scrollable Sections -->
-        <div class="message" style="margin-top: 30px; animation-delay: 0.6s;">
-            <h2 style="color: #e74c3c; margin-bottom: 20px;">🌹 The Meaning of Roses 🌹</h2>
-            <p><span class="highlight">Red Rose:</span> Symbolizes deep love and passion</p>
-            <p><span class="highlight">Pink Rose:</span> Represents admiration and appreciation</p>
-            <p><span class="highlight">White Rose:</span> Signifies purity and new beginnings</p>
-            <p><span class="highlight">Yellow Rose:</span> Celebrates friendship and joy</p>
-            <p style="margin-top: 20px;">Each rose has its own story, but they all speak the universal language of love!</p>
-        </div>
-
-        <div class="message" style="margin-top: 30px; animation-delay: 0.9s;">
-            <h2 style="color: #e74c3c; margin-bottom: 20px;">💕 Valentine Week Special 💕</h2>
-            <p><strong>Rose Day</strong> - February 7th 🌹</p>
-            <p><strong>Propose Day</strong> - February 8th 💍</p>
-            <p><strong>Chocolate Day</strong> - February 9th 🍫</p>
-            <p><strong>Teddy Day</strong> - February 10th 🧸</p>
-            <p><strong>Promise Day</strong> - February 11th 🤝</p>
-            <p><strong>Hug Day</strong> - February 12th 🤗</p>
-            <p><strong>Kiss Day</strong> - February 13th 💋</p>
-            <p><strong>Valentine's Day</strong> - February 14th ❤️</p>
-        </div>
-
-        <div class="message" style="margin-top: 30px; animation-delay: 1.2s;">
-            <h2 style="color: #e74c3c; margin-bottom: 20px;">✨ A Special Promise ✨</h2>
-            <p>On this beautiful Rose Day, I want to make a promise to you:</p>
-            <p>To love you like the rose loves the morning dew,</p>
-            <p>To cherish you like the petals cherish their fragrance,</p>
-            <p>To stand by you through every season of life,</p>
-            <p class="highlight">And to make every day as special as today!</p>
-            <p style="margin-top: 20px; font-style: italic;">Because you deserve all the roses in the world! 🌹🌹🌹</p>
         </div>
 
         <div class="message" style="margin-top: 30px; margin-bottom: 50px; animation-delay: 1.5s;">
@@ -737,6 +705,45 @@
             }).catch(() => {});
             document.removeEventListener('touchstart', unlockAudio);
         }, { once: true });
+
+        // Stop music when user leaves the page
+        window.addEventListener('beforeunload', function() {
+            if (isPlaying) {
+                bgMusic.pause();
+                bgMusic.currentTime = 0;
+                console.log('Music stopped - user leaving page');
+            }
+        });
+
+        // Stop music when page loses focus (user switches tab)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                if (isPlaying) {
+                    bgMusic.pause();
+                    musicControl.innerHTML = '🔇';
+                    musicControl.classList.remove('playing');
+                    console.log('Music paused - page hidden');
+                }
+            }
+        });
+
+        // Stop music when window loses focus
+        window.addEventListener('blur', function() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicControl.innerHTML = '🔇';
+                musicControl.classList.remove('playing');
+                isPlaying = false;
+                console.log('Music stopped - window lost focus');
+            }
+        });
+
+        // Pause music when user navigates away
+        window.addEventListener('pagehide', function() {
+            bgMusic.pause();
+            bgMusic.currentTime = 0;
+            console.log('Music stopped - page hide');
+        });
 
         // Scroll down function
         function scrollDown() {
