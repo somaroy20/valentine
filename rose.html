@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Rose Day 🌹</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 50px 0;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .rose-container {
+            position: relative;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .rose {
+            font-size: 120px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-10deg);
+            }
+            75% {
+                transform: rotate(10deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .message {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .message p {
+            color: #333;
+            font-size: 1.3em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: #ff6b9d;
+            animation: fall linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10%;
+                opacity: 0.7;
+            }
+            100% {
+                top: 110%;
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .petals {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+
+        .petal {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b9d;
+            border-radius: 50% 0 50% 0;
+            animation: petalFall linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes petalFall {
+            0% {
+                top: -10%;
+                transform: rotate(0deg);
+            }
+            100% {
+                top: 110%;
+                transform: rotate(360deg);
+            }
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-style: italic;
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            .rose {
+                font-size: 80px;
+            }
+            .message {
+                padding: 30px 20px;
+            }
+            .message p {
+                font-size: 1.1em;
+            }
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2em;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 100;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        .scroll-indicator.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .music-control.playing {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 5px 20px rgba(231, 76, 60, 0.4);
+            }
+            50% {
+                box-shadow: 0 5px 30px rgba(231, 76, 60, 0.8);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Welcome overlay for music activation */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .welcome-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .welcome-content {
+            text-align: center;
+            color: white;
+            padding: 40px;
+        }
+
+        .welcome-content h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .welcome-rose {
+            font-size: 100px;
+            margin: 20px 0;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .start-button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+            transition: all 0.3s;
+            margin-top: 30px;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+        }
+
+        .start-button:active {
+            transform: translateY(0);
+        }
+
+        /* Audio debug info */
+        .audio-status {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: monospace;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Overlay for Music Activation -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="welcome-content">
+            <div class="welcome-rose">🌹</div>
+            <h2>Happy Rose Day!</h2>
+            <p style="font-size: 1.2em; margin: 20px 0;">Tap to see some message for you.</p>
+            <button class="start-button" onclick="startExperience()">Click here! 🎵</button>
+        </div>
+    </div>
+
+    <!-- Falling Hearts -->
+    <div class="hearts" id="hearts"></div>
+    
+    <!-- Falling Petals -->
+    <div class="petals" id="petals"></div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop preload="auto" playsinline>
+        <source src="TumJoAayeZindegimein.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Control Button -->
+    <button class="music-control playing" id="musicControl" onclick="toggleMusic()">
+        🎵
+    </button>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator" onclick="scrollDown()">⬇️</div>
+
+    <!-- Audio Status (for debugging) -->
+    <div class="audio-status" id="audioStatus">Status: Not loaded</div>
+
+    <div class="container">
+        <div class="rose-container">
+            <div class="rose">🌹</div>
+        </div>
+        
+        <h1>Happy Rose Day!</h1>
+        
+        <div class="message">
+            <p>Just like a rose speaks the language of love,</p>
+            <p>I want to tell you how special you are to me.</p>
+            <p class="highlight">You are the most beautiful rose in the garden of my life! 🌹</p>
+            <p>May your day be filled with love, joy, and the sweet fragrance of roses.</p>
+            <p>This Rose Day, I promise to cherish every moment with you.</p>
+            
+            <button class="button" onclick="showSurprise()">Click for a Surprise! 💕</button>
+            
+            <div class="signature">
+                With all my love ❤️
+            </div>
+        </div>
+
+        <div class="message" style="margin-top: 30px; margin-bottom: 50px; animation-delay: 1.5s;">
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">🎵 Love Quote 🎵</h2>
+            <p style="font-size: 1.4em; font-style: italic; color: #e74c3c;">"A rose speaks of love silently, in a language known only to the heart."</p>
+            <p style="margin-top: 30px;">Thank you for being the rose that brightens my life every single day!</p>
+            <p class="highlight" style="font-size: 1.3em; margin-top: 20px;">Happy Rose Day, My Love! 🌹❤️</p>
+        </div>
+    </div>
+
+    <script>
+        // Create falling hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Create falling petals
+        function createPetals() {
+            const petalsContainer = document.getElementById('petals');
+            for (let i = 0; i < 30; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                petal.style.animationDelay = Math.random() * 5 + 's';
+                petal.style.width = (Math.random() * 8 + 5) + 'px';
+                petal.style.height = petal.style.width;
+                petalsContainer.appendChild(petal);
+            }
+        }
+
+        // Surprise message
+        function showSurprise() {
+            const messages = [
+                "You make my world beautiful! 🌹✨",
+                "Every day with you is a blessing! 💕",
+                "You are my forever Valentine! 💖",
+                "Thank you for being my rose! 🌹❤️",
+                "You bloom in my heart always! 🌹💗"
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            
+            // Create surprise popup with image
+            const popup = document.createElement('div');
+            popup.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                background: white;
+                padding: 40px;
+                border-radius: 20px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+                z-index: 1000;
+                text-align: center;
+                max-width: 90%;
+                max-height: 90vh;
+                overflow-y: auto;
+                transition: transform 0.5s;
+            `;
+            
+            popup.innerHTML = `
+                <img src="IMG_0995.jpeg" alt="Surprise Image" style="
+                    max-width: 100%;
+                    max-height: 400px;
+                    border-radius: 15px;
+                    margin-bottom: 20px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                ">
+                <div style="
+                    font-size: 1.5em;
+                    color: #e74c3c;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                ">${randomMessage}</div>
+                <div style="font-size: 0.9em; color: #666; cursor: pointer;">Click anywhere to close</div>
+            `;
+            
+            document.body.appendChild(popup);
+            
+            setTimeout(() => {
+                popup.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 10);
+            
+            popup.onclick = function() {
+                popup.style.transform = 'translate(-50%, -50%) scale(0)';
+                setTimeout(() => popup.remove(), 500);
+            };
+        }
+
+        // Initialize animations
+        createHearts();
+        createPetals();
+
+        // Music functionality
+        const bgMusic = document.getElementById('bgMusic');
+        const musicControl = document.getElementById('musicControl');
+        const welcomeOverlay = document.getElementById('welcomeOverlay');
+        const audioStatus = document.getElementById('audioStatus');
+        let isPlaying = false;
+        let hasInteracted = false;
+
+        // Set volume
+        bgMusic.volume = 0.4;
+
+        // Show audio status for 10 seconds to help debug
+        audioStatus.style.display = 'block';
+        setTimeout(() => {
+            audioStatus.style.display = 'none';
+        }, 10000);
+
+        // Audio event listeners for debugging
+        bgMusic.addEventListener('loadstart', () => {
+            audioStatus.textContent = 'Status: Loading...';
+            console.log('Audio loading started');
+        });
+
+        bgMusic.addEventListener('canplay', () => {
+            audioStatus.textContent = 'Status: Ready to play!';
+            console.log('Audio can play');
+        });
+
+        bgMusic.addEventListener('playing', () => {
+            audioStatus.textContent = 'Status: ✓ Playing!';
+            console.log('Audio is playing');
+        });
+
+        bgMusic.addEventListener('pause', () => {
+            audioStatus.textContent = 'Status: Paused';
+            console.log('Audio paused');
+        });
+
+        bgMusic.addEventListener('error', (e) => {
+            audioStatus.textContent = 'Status: ERROR - ' + e.type;
+            console.error('Audio error:', e);
+        });
+
+        // Function to start the experience
+        function startExperience() {
+            hasInteracted = true;
+            
+            // Hide welcome overlay
+            welcomeOverlay.classList.add('hidden');
+            
+            // Start music with better handling
+            setTimeout(() => {
+                console.log('Attempting to play music...');
+                bgMusic.load();
+                
+                bgMusic.play()
+                    .then(() => {
+                        console.log('SUCCESS: Music is playing!');
+                        isPlaying = true;
+                        musicControl.classList.add('playing');
+                        musicControl.innerHTML = '🎵';
+                        musicControl.title = 'Pause music';
+                    })
+                    .catch((error) => {
+                        console.error('FAILED to play music:', error);
+                        alert('Music failed to play. Error: ' + error.message + '\n\nPlease click the 🎵 button in top-right corner to start music.');
+                        isPlaying = false;
+                        musicControl.classList.remove('playing');
+                        musicControl.innerHTML = '🔇';
+                    });
+            }, 300);
+        }
+
+        // Make startExperience globally available
+        window.startExperience = startExperience;
+
+        // For desktop - try autoplay after a short delay
+        if (window.innerWidth > 768) {
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    // Try to play without overlay on desktop
+                    const playPromise = bgMusic.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            // Autoplay worked - hide overlay
+                            welcomeOverlay.classList.add('hidden');
+                            isPlaying = true;
+                            musicControl.classList.add('playing');
+                            musicControl.innerHTML = '🎵';
+                        }).catch(() => {
+                            // Autoplay blocked - keep overlay
+                            console.log('Autoplay blocked - showing overlay');
+                        });
+                    }
+                }, 500);
+            });
+        }
+
+        function playMusic() {
+            // For mobile devices, ensure proper playback
+            bgMusic.load(); // Reload the audio element
+            
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    musicControl.classList.add('playing');
+                    musicControl.innerHTML = '🎵';
+                    musicControl.title = 'Pause music';
+                    console.log('Music playing successfully');
+                }).catch(error => {
+                    console.log('Error playing music:', error);
+                    isPlaying = false;
+                    musicControl.classList.remove('playing');
+                    musicControl.innerHTML = '🔇';
+                    musicControl.title = 'Play music';
+                    
+                    // Show notification only if user has interacted
+                    if (hasInteracted) {
+                        showMusicNotification();
+                    }
+                });
+            }
+        }
+
+        function showMusicNotification() {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 90px;
+                right: 20px;
+                background: rgba(231, 76, 60, 0.95);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                font-size: 14px;
+                z-index: 1001;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                animation: slideIn 0.5s ease-out;
+            `;
+            notification.innerHTML = '🎵 Click the music button to play!';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s';
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
+        }
+
+        function toggleMusic() {
+            console.log('Toggle music clicked. Current state:', isPlaying);
+            
+            if (isPlaying) {
+                bgMusic.pause();
+                musicControl.innerHTML = '🔇';
+                musicControl.classList.remove('playing');
+                musicControl.title = 'Play music';
+                isPlaying = false;
+                console.log('Music paused');
+            } else {
+                console.log('Attempting to play music...');
+                bgMusic.load();
+                
+                bgMusic.play()
+                    .then(() => {
+                        console.log('SUCCESS: Music started playing!');
+                        musicControl.innerHTML = '🎵';
+                        musicControl.classList.add('playing');
+                        musicControl.title = 'Pause music';
+                        isPlaying = true;
+                    })
+                    .catch(error => {
+                        console.error('ERROR playing music:', error);
+                        alert('Cannot play music.\nError: ' + error.message + '\n\nTry:\n1. Check internet connection\n2. Refresh the page\n3. Enable sound in browser settings');
+                    });
+            }
+        }
+
+        // iOS specific fix - unlock audio on first touch
+        document.addEventListener('touchstart', function unlockAudio() {
+            bgMusic.play().then(() => {
+                bgMusic.pause();
+                bgMusic.currentTime = 0;
+            }).catch(() => {});
+            document.removeEventListener('touchstart', unlockAudio);
+        }, { once: true });
+
+        // Stop music when user leaves the page
+        window.addEventListener('beforeunload', function() {
+            if (isPlaying) {
+                bgMusic.pause();
+                bgMusic.currentTime = 0;
+                console.log('Music stopped - user leaving page');
+            }
+        });
+
+        // Stop music when page loses focus (user switches tab)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                if (isPlaying) {
+                    bgMusic.pause();
+                    musicControl.innerHTML = '🔇';
+                    musicControl.classList.remove('playing');
+                    console.log('Music paused - page hidden');
+                }
+            }
+        });
+
+        // Stop music when window loses focus
+        window.addEventListener('blur', function() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicControl.innerHTML = '🔇';
+                musicControl.classList.remove('playing');
+                isPlaying = false;
+                console.log('Music stopped - window lost focus');
+            }
+        });
+
+        // Pause music when user navigates away
+        window.addEventListener('pagehide', function() {
+            bgMusic.pause();
+            bgMusic.currentTime = 0;
+            console.log('Music stopped - page hide');
+        });
+
+        // Scroll down function
+        function scrollDown() {
+            window.scrollBy({
+                top: window.innerHeight * 0.8,
+                behavior: 'smooth'
+            });
+        }
+
+        // Hide scroll indicator when user scrolls
+        window.addEventListener('scroll', function() {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            if (window.scrollY > 100) {
+                scrollIndicator.classList.add('hidden');
+            } else {
+                scrollIndicator.classList.remove('hidden');
+            }
+        });
+
+        // Add sparkle effect on mouse move
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() > 0.9) {
+                const sparkle = document.createElement('div');
+                sparkle.innerHTML = '✨';
+                sparkle.style.cssText = `
+                    position: absolute;
+                    left: ${e.pageX}px;
+                    top: ${e.pageY}px;
+                    font-size: 20px;
+                    pointer-events: none;
+                    animation: sparkleAnim 1s ease-out forwards;
+                `;
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 1000);
+            }
+        });
+
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkleAnim {
+                0% {
+                    opacity: 1;
+                    transform: scale(0) rotate(0deg);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(1.5) rotate(180deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
