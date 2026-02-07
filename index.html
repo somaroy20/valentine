@@ -249,6 +249,43 @@
             pointer-events: none;
             transition: opacity 0.5s;
         }
+
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .music-control.playing {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 5px 20px rgba(231, 76, 60, 0.4);
+            }
+            50% {
+                box-shadow: 0 5px 30px rgba(231, 76, 60, 0.8);
+            }
+        }
     </style>
 </head>
 <body>
@@ -257,6 +294,16 @@
     
     <!-- Falling Petals -->
     <div class="petals" id="petals"></div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_4a462d411d.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Control Button -->
+    <button class="music-control playing" id="musicControl" onclick="toggleMusic()">
+        🎵
+    </button>
 
     <!-- Scroll Indicator -->
     <div class="scroll-indicator" id="scrollIndicator" onclick="scrollDown()">⬇️</div>
@@ -282,18 +329,18 @@
             </div>
         </div>
 
-        <!-- Additional Scrollable Sections -->
-        <div class="message" style="margin-top: 30px; animation-delay: 0.6s;">
-            <h2 style="color: #e74c3c; margin-bottom: 20px;">🌹 The Meaning of Roses 🌹</h2>
-            <p><span class="highlight">Red Rose:</span> Symbolizes deep love and passion</p>
-            <p><span class="highlight">Pink Rose:</span> Represents admiration and appreciation</p>
-            <p><span class="highlight">White Rose:</span> Signifies purity and new beginnings</p>
-            <p><span class="highlight">Yellow Rose:</span> Celebrates friendship and joy</p>
-            <p style="margin-top: 20px;">Each rose has its own story, but they all speak the universal language of love!</p>
+        <div class="message" style="margin-top: 30px; animation-delay: 1.2s;">
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">✨ A Special Promise ✨</h2>
+            <p>On this beautiful Rose Day, I want to make a promise to you:</p>
+            <p>To love you like the rose loves the morning dew,</p>
+            <p>To cherish you like the petals cherish their fragrance,</p>
+            <p>To stand by you through every season of life,</p>
+            <p class="highlight">And to make every day as special as today!</p>
+            <p style="margin-top: 20px; font-style: italic;">Because you deserve all the roses in the world! 🌹🌹🌹</p>
         </div>
 
         <div class="message" style="margin-top: 30px; margin-bottom: 50px; animation-delay: 1.5s;">
-            <h2 style="color: #e74c3c; margin-bottom: 20px;">🎵 For you 🎵</h2>
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">🎵 For you my Love 🎵</h2>
             <p style="font-size: 1.4em; font-style: italic; color: #e74c3c;">"A rose speaks of love silently, in a language known only to the heart."</p>
             <p style="margin-top: 30px;">Thank you for being the rose that brightens my life every single day!</p>
             <p class="highlight" style="font-size: 1.3em; margin-top: 20px;">Happy Rose Day, My Love! 🌹❤️</p>
@@ -377,6 +424,56 @@
         // Initialize animations
         createHearts();
         createPetals();
+
+        // Music functionality
+        const bgMusic = document.getElementById('bgMusic');
+        const musicControl = document.getElementById('musicControl');
+        let isPlaying = false;
+
+        // Auto-play music when page loads
+        window.addEventListener('load', function() {
+            // Try to play music automatically
+            playMusic();
+        });
+
+        // Also try to play on first user interaction (for browsers that block autoplay)
+        document.addEventListener('click', function initMusic() {
+            if (!isPlaying) {
+                playMusic();
+            }
+            document.removeEventListener('click', initMusic);
+        }, { once: true });
+
+        function playMusic() {
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                musicControl.classList.add('playing');
+                musicControl.innerHTML = '🎵';
+            }).catch(error => {
+                // Autoplay was prevented
+                console.log('Autoplay prevented, waiting for user interaction');
+                isPlaying = false;
+                musicControl.classList.remove('playing');
+                musicControl.innerHTML = '🔇';
+            });
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicControl.innerHTML = '🔇';
+                musicControl.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                bgMusic.play().then(() => {
+                    musicControl.innerHTML = '🎵';
+                    musicControl.classList.add('playing');
+                    isPlaying = true;
+                }).catch(error => {
+                    console.log('Error playing audio:', error);
+                });
+            }
+        }
 
         // Scroll down function
         function scrollDown() {
