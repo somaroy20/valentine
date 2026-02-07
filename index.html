@@ -297,9 +297,82 @@
                 opacity: 1;
             }
         }
+
+        /* Welcome overlay for music activation */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .welcome-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .welcome-content {
+            text-align: center;
+            color: white;
+            padding: 40px;
+        }
+
+        .welcome-content h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .welcome-rose {
+            font-size: 100px;
+            margin: 20px 0;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .start-button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+            transition: all 0.3s;
+            margin-top: 30px;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+        }
+
+        .start-button:active {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
+    <!-- Welcome Overlay for Music Activation -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="welcome-content">
+            <div class="welcome-rose">🌹</div>
+            <h2>Happy Rose Day!</h2>
+            <p style="font-size: 1.2em; margin: 20px 0;">Tap to start your romantic journey</p>
+            <button class="start-button" onclick="startExperience()">Start with Music 🎵</button>
+        </div>
+    </div>
+
     <!-- Falling Hearts -->
     <div class="hearts" id="hearts"></div>
     
@@ -307,10 +380,12 @@
     <div class="petals" id="petals"></div>
 
     <!-- Background Music -->
-    <audio id="bgMusic" loop autoplay>
-        <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-love-18.mp3" type="audio/mpeg">
-        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
-        <source src="https://cdn.pixabay.com/audio/2022/03/24/audio_c8c6c62f5c.mp3" type="audio/mpeg">
+    <audio id="bgMusic" loop preload="auto" playsinline>
+        <!-- Romantic Piano Song -->
+        <source src="https://cdn.pixabay.com/audio/2023/12/05/audio_0c95b5c38b.mp3" type="audio/mpeg">
+        <!-- Backup romantic songs -->
+        <source src="https://cdn.pixabay.com/audio/2024/03/12/audio_b88a9b3f15.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/audio/2022/05/13/audio_0f0c07e341.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Music Control Button -->
@@ -463,30 +538,55 @@
         // Music functionality
         const bgMusic = document.getElementById('bgMusic');
         const musicControl = document.getElementById('musicControl');
+        const welcomeOverlay = document.getElementById('welcomeOverlay');
         let isPlaying = false;
+        let hasInteracted = false;
 
         // Set volume
-        bgMusic.volume = 0.5;
+        bgMusic.volume = 0.4;
 
-        // Auto-play music when page loads
-        window.addEventListener('load', function() {
+        // Function to start the experience
+        function startExperience() {
+            hasInteracted = true;
+            
+            // Hide welcome overlay
+            welcomeOverlay.classList.add('hidden');
+            
+            // Start music
             setTimeout(() => {
                 playMusic();
-            }, 500);
-        });
-
-        // Try to play on any user interaction
-        function startMusicOnInteraction() {
-            if (!isPlaying) {
-                playMusic();
-            }
+            }, 300);
         }
 
-        document.addEventListener('click', startMusicOnInteraction, { once: true });
-        document.addEventListener('touchstart', startMusicOnInteraction, { once: true });
-        document.addEventListener('keydown', startMusicOnInteraction, { once: true });
+        // Make startExperience globally available
+        window.startExperience = startExperience;
+
+        // For desktop - try autoplay after a short delay
+        if (window.innerWidth > 768) {
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    // Try to play without overlay on desktop
+                    const playPromise = bgMusic.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            // Autoplay worked - hide overlay
+                            welcomeOverlay.classList.add('hidden');
+                            isPlaying = true;
+                            musicControl.classList.add('playing');
+                            musicControl.innerHTML = '🎵';
+                        }).catch(() => {
+                            // Autoplay blocked - keep overlay
+                            console.log('Autoplay blocked - showing overlay');
+                        });
+                    }
+                }, 500);
+            });
+        }
 
         function playMusic() {
+            // For mobile devices, ensure proper playback
+            bgMusic.load(); // Reload the audio element
+            
             const playPromise = bgMusic.play();
             
             if (playPromise !== undefined) {
@@ -494,17 +594,19 @@
                     isPlaying = true;
                     musicControl.classList.add('playing');
                     musicControl.innerHTML = '🎵';
+                    musicControl.title = 'Pause music';
                     console.log('Music playing successfully');
                 }).catch(error => {
-                    // Autoplay was prevented
-                    console.log('Autoplay prevented:', error);
+                    console.log('Error playing music:', error);
                     isPlaying = false;
                     musicControl.classList.remove('playing');
                     musicControl.innerHTML = '🔇';
-                    musicControl.title = 'Click to play music';
+                    musicControl.title = 'Play music';
                     
-                    // Show a small notification
-                    showMusicNotification();
+                    // Show notification only if user has interacted
+                    if (hasInteracted) {
+                        showMusicNotification();
+                    }
                 });
             }
         }
@@ -542,6 +644,7 @@
                 musicControl.title = 'Play music';
                 isPlaying = false;
             } else {
+                bgMusic.load(); // Reload for mobile
                 bgMusic.play().then(() => {
                     musicControl.innerHTML = '🎵';
                     musicControl.classList.add('playing');
@@ -549,10 +652,19 @@
                     isPlaying = true;
                 }).catch(error => {
                     console.log('Error playing audio:', error);
-                    alert('Unable to play music. Please check your internet connection.');
+                    alert('Unable to play music. Please try again or check your connection.');
                 });
             }
         }
+
+        // iOS specific fix - unlock audio on first touch
+        document.addEventListener('touchstart', function unlockAudio() {
+            bgMusic.play().then(() => {
+                bgMusic.pause();
+                bgMusic.currentTime = 0;
+            }).catch(() => {});
+            document.removeEventListener('touchstart', unlockAudio);
+        }, { once: true });
 
         // Scroll down function
         function scrollDown() {
