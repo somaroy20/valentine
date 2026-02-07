@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Chocolate Day, My Love! 🍫</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating hearts background */
+        .heart-bg {
+            position: fixed;
+            top: -10%;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float-up 8s infinite ease-in;
+            opacity: 0;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 10;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Chocolate bar animation */
+        .chocolate-wrapper {
+            margin: 20px 0;
+            position: relative;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chocolate {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(145deg, #6d4c41, #5d4037);
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .chocolate:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .chocolate::before {
+            content: '🍫';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 60px;
+            animation: rotate 3s infinite linear;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Text styles */
+        h1 {
+            color: #5d4037;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-in;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .message {
+            color: #6d4c41;
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin: 25px 0;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .special-message {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #5d4037;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        /* Sparkles */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: sparkle 1.5s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .sparkle:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 40%; right: 20%; animation-delay: 0.3s; }
+        .sparkle:nth-child(3) { bottom: 30%; left: 25%; animation-delay: 0.6s; }
+        .sparkle:nth-child(4) { top: 60%; right: 15%; animation-delay: 0.9s; }
+        .sparkle:nth-child(5) { bottom: 20%; right: 30%; animation-delay: 1.2s; }
+
+        /* Button */
+        .love-button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+            transition: all 0.3s;
+            animation: fadeIn 2.5s ease-in;
+        }
+
+        .love-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.6);
+        }
+
+        .love-button:active {
+            transform: translateY(0);
+        }
+
+        /* Falling chocolates on click */
+        .falling-chocolate {
+            position: fixed;
+            font-size: 30px;
+            pointer-events: none;
+            animation: fall 3s linear;
+            z-index: 100;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            .message {
+                font-size: 1em;
+            }
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="heart-bg" id="heartBg"></div>
+
+    <!-- Main container -->
+    <div class="container">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+
+        <h1>Happy Chocolate Day! 🍫💕</h1>
+        
+        <div class="chocolate-wrapper">
+            <div class="chocolate" onclick="createFallingChocolates()"></div>
+        </div>
+
+        <p class="message">
+            To my sweetest love,<br>
+            Just like chocolate makes everything better,<br>
+            you make my life sweeter and more beautiful! ✨
+        </p>
+
+        <div class="special-message">
+            "You're sweeter than the finest chocolate,<br>
+            more precious than the rarest treat,<br>
+            and the reason my heart skips a beat! 💝"
+        </div>
+
+        <p class="message">
+            Every moment with you is like unwrapping<br>
+            the most delicious chocolate - full of joy,<br>
+            sweetness, and endless love! 🎁
+        </p>
+
+        <button class="love-button" onclick="showLoveMessage()">
+            Click for a Sweet Surprise! 💖
+        </button>
+    </div>
+
+    <script>
+        // Create floating hearts in background
+        const heartBg = document.getElementById('heartBg');
+        const heartSymbols = ['❤️', '💕', '💖', '💗', '💝'];
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            heartBg.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+
+        // Create hearts periodically
+        setInterval(createHeart, 500);
+
+        // Create falling chocolates on click
+        function createFallingChocolates() {
+            const chocolateEmojis = ['🍫', '🍬', '🍭', '🍰', '🎂'];
+            
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const chocolate = document.createElement('div');
+                    chocolate.className = 'falling-chocolate';
+                    chocolate.textContent = chocolateEmojis[Math.floor(Math.random() * chocolateEmojis.length)];
+                    chocolate.style.left = Math.random() * 100 + '%';
+                    chocolate.style.top = '-50px';
+                    document.body.appendChild(chocolate);
+                    
+                    setTimeout(() => {
+                        chocolate.remove();
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+
+        // Show love message
+        function showLoveMessage() {
+            const messages = [
+                "You're my favorite addiction! 🍫💕",
+                "Life with you is sweet like chocolate! 💝",
+                "You melt my heart every single day! ❤️",
+                "Thanks for being the sweetest part of my life! 💖",
+                "You + Me = Perfect sweetness! 🍫✨",
+                "I'm so lucky to have you, my love! 💕"
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            alert(randomMessage);
+            createFallingChocolates();
+        }
+
+        // Easter egg: Click chocolate 5 times for special animation
+        let clickCount = 0;
+        document.querySelector('.chocolate').addEventListener('click', function() {
+            clickCount++;
+            if (clickCount === 5) {
+                this.style.animation = 'bounce 0.5s infinite, rotate 1s infinite linear';
+                setTimeout(() => {
+                    this.style.animation = 'bounce 2s infinite';
+                    clickCount = 0;
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
