@@ -434,16 +434,6 @@
     <!-- Music Control Button -->
     <button class="music-control" id="musicToggle" onclick="toggleMusic()">🎵</button>
 
-    <!-- Music start prompt -->
-    <div id="musicPrompt" style="display: none;">
-        <div class="message-overlay"></div>
-        <div class="cute-message">
-            <div class="cute-message-emoji">🎵💕</div>
-            <div class="cute-message-text">Start your sweet journey with music?</div>
-            <button class="cute-message-close" onclick="startMusicFromPrompt()">Yes, Play Music! 🎶</button>
-        </div>
-    </div>
-
     <!-- Background Music -->
     <audio id="bgMusic" loop preload="auto">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
@@ -452,48 +442,31 @@
     <script>
         // Background Music Control
         const bgMusic = document.getElementById('bgMusic');
-        const musicPrompt = document.getElementById('musicPrompt');
         bgMusic.volume = 0.25; // Set volume to 25% for gentle background music
         
         // Set audio source
         bgMusic.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
         
-        // Function to start music
-        async function startMusic() {
-            try {
-                await bgMusic.play();
-                console.log("Music is playing! 🎵");
-                return true;
-            } catch (error) {
-                console.log("Showing music prompt...");
-                musicPrompt.style.display = 'block';
-                return false;
-            }
-        }
-
-        // Start music from prompt
-        function startMusicFromPrompt() {
-            bgMusic.play();
-            musicPrompt.style.display = 'none';
-            document.getElementById('musicToggle').textContent = '🎵';
-        }
-
-        // Try to play music when page loads
+        // Try to play music automatically
         window.addEventListener('load', function() {
-            setTimeout(startMusic, 500); // Small delay for better compatibility
+            setTimeout(() => {
+                bgMusic.play().catch(() => {
+                    // Silently wait for user interaction
+                });
+            }, 500);
         });
         
-        // Backup: Try on first interaction
-        let musicAttempted = false;
-        function attemptMusicStart() {
-            if (!musicAttempted && bgMusic.paused) {
+        // Start music on ANY user interaction (click, touch, keypress, etc.)
+        function startMusicOnInteraction() {
+            if (bgMusic.paused) {
                 bgMusic.play().catch(() => {});
-                musicAttempted = true;
             }
         }
         
-        document.addEventListener('click', attemptMusicStart, { once: true });
-        document.addEventListener('touchstart', attemptMusicStart, { once: true });
+        // Add listeners for various interactions
+        ['click', 'touchstart', 'keydown', 'mousemove'].forEach(event => {
+            document.addEventListener(event, startMusicOnInteraction, { once: true });
+        });
 
         // Stop music when page is closed/hidden
         document.addEventListener('visibilitychange', function() {
