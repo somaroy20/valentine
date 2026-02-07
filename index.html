@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Rose Day 🌹</title>
@@ -12,14 +11,15 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Georgia', serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            padding: 50px 0;
             position: relative;
         }
 
@@ -218,6 +218,37 @@
                 font-size: 1.1em;
             }
         }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2em;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 100;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        .scroll-indicator.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
     </style>
 </head>
 <body>
@@ -226,6 +257,9 @@
     
     <!-- Falling Petals -->
     <div class="petals" id="petals"></div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator" onclick="scrollDown()">⬇️</div>
 
     <div class="container">
         <div class="rose-container">
@@ -246,6 +280,45 @@
             <div class="signature">
                 With all my love ❤️
             </div>
+        </div>
+
+        <!-- Additional Scrollable Sections -->
+        <div class="message" style="margin-top: 30px; animation-delay: 0.6s;">
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">🌹 The Meaning of Roses 🌹</h2>
+            <p><span class="highlight">Red Rose:</span> Symbolizes deep love and passion</p>
+            <p><span class="highlight">Pink Rose:</span> Represents admiration and appreciation</p>
+            <p><span class="highlight">White Rose:</span> Signifies purity and new beginnings</p>
+            <p><span class="highlight">Yellow Rose:</span> Celebrates friendship and joy</p>
+            <p style="margin-top: 20px;">Each rose has its own story, but they all speak the universal language of love!</p>
+        </div>
+
+        <div class="message" style="margin-top: 30px; animation-delay: 0.9s;">
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">💕 Valentine Week Special 💕</h2>
+            <p><strong>Rose Day</strong> - February 7th 🌹</p>
+            <p><strong>Propose Day</strong> - February 8th 💍</p>
+            <p><strong>Chocolate Day</strong> - February 9th 🍫</p>
+            <p><strong>Teddy Day</strong> - February 10th 🧸</p>
+            <p><strong>Promise Day</strong> - February 11th 🤝</p>
+            <p><strong>Hug Day</strong> - February 12th 🤗</p>
+            <p><strong>Kiss Day</strong> - February 13th 💋</p>
+            <p><strong>Valentine's Day</strong> - February 14th ❤️</p>
+        </div>
+
+        <div class="message" style="margin-top: 30px; animation-delay: 1.2s;">
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">✨ A Special Promise ✨</h2>
+            <p>On this beautiful Rose Day, I want to make a promise to you:</p>
+            <p>To love you like the rose loves the morning dew,</p>
+            <p>To cherish you like the petals cherish their fragrance,</p>
+            <p>To stand by you through every season of life,</p>
+            <p class="highlight">And to make every day as special as today!</p>
+            <p style="margin-top: 20px; font-style: italic;">Because you deserve all the roses in the world! 🌹🌹🌹</p>
+        </div>
+
+        <div class="message" style="margin-top: 30px; margin-bottom: 50px; animation-delay: 1.5s;">
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">🎵 Love Quote 🎵</h2>
+            <p style="font-size: 1.4em; font-style: italic; color: #e74c3c;">"A rose speaks of love silently, in a language known only to the heart."</p>
+            <p style="margin-top: 30px;">Thank you for being the rose that brightens my life every single day!</p>
+            <p class="highlight" style="font-size: 1.3em; margin-top: 20px;">Happy Rose Day, My Love! 🌹❤️</p>
         </div>
     </div>
 
@@ -326,6 +399,24 @@
         // Initialize animations
         createHearts();
         createPetals();
+
+        // Scroll down function
+        function scrollDown() {
+            window.scrollBy({
+                top: window.innerHeight * 0.8,
+                behavior: 'smooth'
+            });
+        }
+
+        // Hide scroll indicator when user scrolls
+        window.addEventListener('scroll', function() {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            if (window.scrollY > 100) {
+                scrollIndicator.classList.add('hidden');
+            } else {
+                scrollIndicator.classList.remove('hidden');
+            }
+        });
 
         // Add sparkle effect on mouse move
         document.addEventListener('mousemove', function(e) {
