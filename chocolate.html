@@ -234,6 +234,36 @@
             transform: translateY(0);
         }
 
+        /* Music control button */
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 3s ease-in;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .music-control:active {
+            transform: scale(0.95);
+        }
+
         /* Falling chocolates on click */
         .falling-chocolate {
             position: fixed;
@@ -305,7 +335,68 @@
         </button>
     </div>
 
+    <!-- Music Control Button -->
+    <button class="music-control" id="musicToggle" onclick="toggleMusic()">🎵</button>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_3fa58cfc25.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
+        // Background Music Control
+        const bgMusic = document.getElementById('bgMusic');
+        
+        // Try to play music when page loads
+        window.addEventListener('load', function() {
+            bgMusic.volume = 0.3; // Set volume to 30%
+            
+            // Attempt to play
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // Auto-play was prevented, show a play button
+                    console.log("Auto-play prevented. User interaction needed.");
+                });
+            }
+        });
+
+        // Enable audio on first user interaction (in case auto-play is blocked)
+        document.addEventListener('click', function playOnFirstClick() {
+            bgMusic.play();
+            document.removeEventListener('click', playOnFirstClick);
+        }, { once: true });
+
+        // Stop music when page is closed/hidden
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                bgMusic.pause();
+            } else {
+                bgMusic.play();
+            }
+        });
+
+        // Pause music when leaving page
+        window.addEventListener('beforeunload', function() {
+            bgMusic.pause();
+        });
+
+        // Toggle music on/off
+        let isMusicPlaying = true;
+        function toggleMusic() {
+            const musicToggle = document.getElementById('musicToggle');
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                musicToggle.textContent = '🔇';
+                isMusicPlaying = false;
+            } else {
+                bgMusic.play();
+                musicToggle.textContent = '🎵';
+                isMusicPlaying = true;
+            }
+        }
+
         // Create floating hearts in background
         const heartBg = document.getElementById('heartBg');
         const heartSymbols = ['❤️', '💕', '💖', '💗', '💝'];
