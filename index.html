@@ -383,8 +383,8 @@
         <div class="welcome-content">
             <div class="welcome-rose">🌹</div>
             <h2>Happy Rose Day!</h2>
-            <p style="font-size: 1.2em; margin: 20px 0;">Tap to see some lines for you.</p>
-            <button class="start-button" onclick="startExperience()">Click here 🎵</button>
+            <p style="font-size: 1.2em; margin: 20px 0;">Tap to start your romantic journey</p>
+            <button class="start-button" onclick="startExperience()">Start with Music 🎵</button>
         </div>
     </div>
 
@@ -429,6 +429,16 @@
             <div class="signature">
                 With all my love ❤️
             </div>
+        </div>
+
+        <div class="message" style="margin-top: 30px; animation-delay: 1.2s;">
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">✨ A Special Promise ✨</h2>
+            <p>On this beautiful Rose Day, I want to make a promise to you:</p>
+            <p>To love you like the rose loves the morning dew,</p>
+            <p>To cherish you like the petals cherish their fragrance,</p>
+            <p>To stand by you through every season of life,</p>
+            <p class="highlight">And to make every day as special as today!</p>
+            <p style="margin-top: 20px; font-style: italic;">Because you deserve all the roses in the world! 🌹🌹🌹</p>
         </div>
 
         <div class="message" style="margin-top: 30px; margin-bottom: 50px; animation-delay: 1.5s;">
@@ -482,7 +492,7 @@
             
             const randomMessage = messages[Math.floor(Math.random() * messages.length)];
             
-            // Create surprise popup
+            // Create surprise popup with image
             const popup = document.createElement('div');
             popup.style.cssText = `
                 position: fixed;
@@ -495,12 +505,29 @@
                 box-shadow: 0 20px 60px rgba(0,0,0,0.4);
                 z-index: 1000;
                 text-align: center;
-                font-size: 1.5em;
-                color: #e74c3c;
-                font-weight: bold;
+                max-width: 90%;
+                max-height: 90vh;
+                overflow-y: auto;
                 transition: transform 0.5s;
             `;
-            popup.innerHTML = randomMessage + '<br><br><span style="font-size: 0.6em; color: #666; cursor: pointer;">Click anywhere to close</span>';
+            
+            popup.innerHTML = `
+                <img src="IMG_0995.jpeg" alt="Surprise Image" style="
+                    max-width: 100%;
+                    max-height: 400px;
+                    border-radius: 15px;
+                    margin-bottom: 20px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                ">
+                <div style="
+                    font-size: 1.5em;
+                    color: #e74c3c;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                ">${randomMessage}</div>
+                <div style="font-size: 0.9em; color: #666; cursor: pointer;">Click anywhere to close</div>
+            `;
+            
             document.body.appendChild(popup);
             
             setTimeout(() => {
