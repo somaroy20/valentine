@@ -286,6 +286,17 @@
                 box-shadow: 0 5px 30px rgba(231, 76, 60, 0.8);
             }
         }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -296,8 +307,10 @@
     <div class="petals" id="petals"></div>
 
     <!-- Background Music -->
-    <audio id="bgMusic" loop>
-        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_4a462d411d.mp3" type="audio/mpeg">
+    <audio id="bgMusic" loop autoplay>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-love-18.mp3" type="audio/mpeg">
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/audio/2022/03/24/audio_c8c6c62f5c.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Music Control Button -->
@@ -329,6 +342,28 @@
             </div>
         </div>
 
+        <!-- Additional Scrollable Sections -->
+        <div class="message" style="margin-top: 30px; animation-delay: 0.6s;">
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">🌹 The Meaning of Roses 🌹</h2>
+            <p><span class="highlight">Red Rose:</span> Symbolizes deep love and passion</p>
+            <p><span class="highlight">Pink Rose:</span> Represents admiration and appreciation</p>
+            <p><span class="highlight">White Rose:</span> Signifies purity and new beginnings</p>
+            <p><span class="highlight">Yellow Rose:</span> Celebrates friendship and joy</p>
+            <p style="margin-top: 20px;">Each rose has its own story, but they all speak the universal language of love!</p>
+        </div>
+
+        <div class="message" style="margin-top: 30px; animation-delay: 0.9s;">
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">💕 Valentine Week Special 💕</h2>
+            <p><strong>Rose Day</strong> - February 7th 🌹</p>
+            <p><strong>Propose Day</strong> - February 8th 💍</p>
+            <p><strong>Chocolate Day</strong> - February 9th 🍫</p>
+            <p><strong>Teddy Day</strong> - February 10th 🧸</p>
+            <p><strong>Promise Day</strong> - February 11th 🤝</p>
+            <p><strong>Hug Day</strong> - February 12th 🤗</p>
+            <p><strong>Kiss Day</strong> - February 13th 💋</p>
+            <p><strong>Valentine's Day</strong> - February 14th ❤️</p>
+        </div>
+
         <div class="message" style="margin-top: 30px; animation-delay: 1.2s;">
             <h2 style="color: #e74c3c; margin-bottom: 20px;">✨ A Special Promise ✨</h2>
             <p>On this beautiful Rose Day, I want to make a promise to you:</p>
@@ -340,7 +375,7 @@
         </div>
 
         <div class="message" style="margin-top: 30px; margin-bottom: 50px; animation-delay: 1.5s;">
-            <h2 style="color: #e74c3c; margin-bottom: 20px;">🎵 For you my Love 🎵</h2>
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">🎵 Love Quote 🎵</h2>
             <p style="font-size: 1.4em; font-style: italic; color: #e74c3c;">"A rose speaks of love silently, in a language known only to the heart."</p>
             <p style="margin-top: 30px;">Thank you for being the rose that brightens my life every single day!</p>
             <p class="highlight" style="font-size: 1.3em; margin-top: 20px;">Happy Rose Day, My Love! 🌹❤️</p>
@@ -430,32 +465,73 @@
         const musicControl = document.getElementById('musicControl');
         let isPlaying = false;
 
+        // Set volume
+        bgMusic.volume = 0.5;
+
         // Auto-play music when page loads
         window.addEventListener('load', function() {
-            // Try to play music automatically
-            playMusic();
+            setTimeout(() => {
+                playMusic();
+            }, 500);
         });
 
-        // Also try to play on first user interaction (for browsers that block autoplay)
-        document.addEventListener('click', function initMusic() {
+        // Try to play on any user interaction
+        function startMusicOnInteraction() {
             if (!isPlaying) {
                 playMusic();
             }
-            document.removeEventListener('click', initMusic);
-        }, { once: true });
+        }
+
+        document.addEventListener('click', startMusicOnInteraction, { once: true });
+        document.addEventListener('touchstart', startMusicOnInteraction, { once: true });
+        document.addEventListener('keydown', startMusicOnInteraction, { once: true });
 
         function playMusic() {
-            bgMusic.play().then(() => {
-                isPlaying = true;
-                musicControl.classList.add('playing');
-                musicControl.innerHTML = '🎵';
-            }).catch(error => {
-                // Autoplay was prevented
-                console.log('Autoplay prevented, waiting for user interaction');
-                isPlaying = false;
-                musicControl.classList.remove('playing');
-                musicControl.innerHTML = '🔇';
-            });
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    musicControl.classList.add('playing');
+                    musicControl.innerHTML = '🎵';
+                    console.log('Music playing successfully');
+                }).catch(error => {
+                    // Autoplay was prevented
+                    console.log('Autoplay prevented:', error);
+                    isPlaying = false;
+                    musicControl.classList.remove('playing');
+                    musicControl.innerHTML = '🔇';
+                    musicControl.title = 'Click to play music';
+                    
+                    // Show a small notification
+                    showMusicNotification();
+                });
+            }
+        }
+
+        function showMusicNotification() {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 90px;
+                right: 20px;
+                background: rgba(231, 76, 60, 0.95);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                font-size: 14px;
+                z-index: 1001;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                animation: slideIn 0.5s ease-out;
+            `;
+            notification.innerHTML = '🎵 Click the music button to play!';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s';
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
         }
 
         function toggleMusic() {
@@ -463,14 +539,17 @@
                 bgMusic.pause();
                 musicControl.innerHTML = '🔇';
                 musicControl.classList.remove('playing');
+                musicControl.title = 'Play music';
                 isPlaying = false;
             } else {
                 bgMusic.play().then(() => {
                     musicControl.innerHTML = '🎵';
                     musicControl.classList.add('playing');
+                    musicControl.title = 'Pause music';
                     isPlaying = true;
                 }).catch(error => {
                     console.log('Error playing audio:', error);
+                    alert('Unable to play music. Please check your internet connection.');
                 });
             }
         }
