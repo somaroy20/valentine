@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Promise Day, My Love! 💍</title>
+    <title>Happy Teddy Day, My Love! 🧸</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 50%, #f67280 100%);
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 50%, #e17055 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,8 +22,8 @@
             position: relative;
         }
 
-        /* Animated background particles */
-        .particles {
+        /* Animated background bubbles */
+        .bubbles {
             position: fixed;
             top: 0;
             left: 0;
@@ -34,18 +34,18 @@
             z-index: 1;
         }
 
-        .particle {
+        .bubble {
             position: absolute;
-            width: 8px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.6);
+            bottom: -100px;
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            animation: float 15s infinite ease-in-out;
+            animation: rise 15s infinite ease-in;
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
+        @keyframes rise {
+            0% {
+                bottom: -100px;
+                transform: translateX(0);
                 opacity: 0;
             }
             10% {
@@ -55,13 +55,14 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100vh) translateX(100px);
+                bottom: 110vh;
+                transform: translateX(100px);
                 opacity: 0;
             }
         }
 
-        /* Floating promise rings */
-        .ring-bg {
+        /* Floating teddies background */
+        .teddy-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -72,51 +73,26 @@
             z-index: 2;
         }
 
-        .ring {
+        .floating-teddy {
             position: absolute;
-            font-size: 30px;
-            animation: float-ring 12s infinite ease-in-out;
+            font-size: 40px;
+            animation: float-teddy 20s infinite ease-in-out;
             opacity: 0;
         }
 
-        @keyframes float-ring {
+        @keyframes float-teddy {
             0% {
-                transform: translateY(100vh) rotate(0deg);
+                transform: translateY(100vh) rotate(0deg) scale(1);
                 opacity: 0;
             }
-            10% {
-                opacity: 0.8;
+            5% {
+                opacity: 0.7;
             }
-            90% {
-                opacity: 0.8;
+            95% {
+                opacity: 0.7;
             }
             100% {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Floating rose petals */
-        .petal {
-            position: absolute;
-            font-size: 25px;
-            animation: fall-petal 10s infinite ease-in;
-            opacity: 0;
-        }
-
-        @keyframes fall-petal {
-            0% {
-                transform: translateY(-10vh) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.9;
-            }
-            90% {
-                opacity: 0.9;
-            }
-            100% {
-                transform: translateY(110vh) translateX(100px) rotate(720deg);
+                transform: translateY(-100vh) rotate(360deg) scale(1.5);
                 opacity: 0;
             }
         }
@@ -124,43 +100,44 @@
         /* Main container */
         .container {
             background: rgba(255, 255, 255, 0.98);
-            border-radius: 30px;
+            border-radius: 35px;
             padding: 50px 40px;
-            max-width: 700px;
+            max-width: 750px;
             width: 90%;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 10;
             animation: slideIn 1s ease-out;
+            border: 5px solid #fab1a0;
         }
 
         @keyframes slideIn {
             from {
-                transform: translateY(-50px);
+                transform: translateY(-50px) scale(0.9);
                 opacity: 0;
             }
             to {
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
                 opacity: 1;
             }
         }
 
         /* Title */
         h1 {
-            color: #e63946;
-            font-size: 2.8em;
+            color: #d63031;
+            font-size: 3em;
             margin-bottom: 15px;
-            animation: fadeIn 1.5s ease-in, glow 2s ease-in-out infinite;
-            text-shadow: 2px 2px 4px rgba(230, 57, 70, 0.3);
+            animation: fadeIn 1.5s ease-in, bounce-title 2s ease-in-out infinite;
+            text-shadow: 3px 3px 6px rgba(214, 48, 49, 0.3);
         }
 
-        @keyframes glow {
+        @keyframes bounce-title {
             0%, 100% {
-                text-shadow: 2px 2px 4px rgba(230, 57, 70, 0.3), 0 0 10px rgba(255, 107, 157, 0.5);
+                transform: translateY(0);
             }
             50% {
-                text-shadow: 2px 2px 4px rgba(230, 57, 70, 0.3), 0 0 20px rgba(255, 107, 157, 0.8), 0 0 30px rgba(255, 107, 157, 0.6);
+                transform: translateY(-10px);
             }
         }
 
@@ -174,144 +151,106 @@
         }
 
         .subtitle {
-            color: #d81159;
-            font-size: 1.2em;
+            color: #e17055;
+            font-size: 1.3em;
             margin-bottom: 30px;
             font-style: italic;
             animation: fadeIn 2s ease-in;
+            font-weight: 500;
         }
 
-        /* Promise ring animation */
-        .ring-wrapper {
+        /* Teddy bear animation */
+        .teddy-wrapper {
             margin: 30px 0;
             position: relative;
-            height: 150px;
+            height: 200px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .promise-ring {
-            width: 120px;
-            height: 120px;
+        .teddy-bear {
+            width: 150px;
+            height: 150px;
             position: relative;
-            animation: pulse-ring 2s infinite;
+            animation: hug-teddy 3s infinite ease-in-out;
             cursor: pointer;
             transition: transform 0.3s;
+            filter: drop-shadow(0 10px 20px rgba(214, 48, 49, 0.3));
         }
 
-        .promise-ring:hover {
-            transform: scale(1.15);
+        .teddy-bear:hover {
+            transform: scale(1.15) rotate(5deg);
         }
 
-        @keyframes pulse-ring {
+        @keyframes hug-teddy {
             0%, 100% {
-                transform: scale(1);
+                transform: scale(1) rotate(-5deg);
             }
             50% {
-                transform: scale(1.08);
+                transform: scale(1.1) rotate(5deg);
             }
         }
 
-        .promise-ring::before {
-            content: '💍';
+        .teddy-bear::before {
+            content: '🧸';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 80px;
-            animation: rotate-ring 4s infinite linear;
+            font-size: 120px;
         }
 
-        @keyframes rotate-ring {
-            from {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-            to {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
-        }
-
-        /* Sparkles around ring */
-        .sparkle {
+        /* Floating hearts around teddy */
+        .heart-float {
             position: absolute;
-            width: 12px;
-            height: 12px;
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            border-radius: 50%;
-            animation: sparkle 1.5s infinite;
-            box-shadow: 0 0 10px #ffd700;
+            font-size: 25px;
+            animation: float-heart 3s infinite ease-in-out;
         }
 
-        @keyframes sparkle {
+        @keyframes float-heart {
             0%, 100% {
-                opacity: 0;
-                transform: scale(0);
+                transform: translateY(0) scale(1);
+                opacity: 0.6;
             }
             50% {
+                transform: translateY(-20px) scale(1.2);
                 opacity: 1;
-                transform: scale(1.5);
             }
         }
 
-        .sparkle:nth-child(1) { top: 10%; left: 30%; animation-delay: 0s; }
-        .sparkle:nth-child(2) { top: 20%; right: 25%; animation-delay: 0.3s; }
-        .sparkle:nth-child(3) { bottom: 25%; left: 20%; animation-delay: 0.6s; }
-        .sparkle:nth-child(4) { top: 50%; right: 10%; animation-delay: 0.9s; }
-        .sparkle:nth-child(5) { bottom: 15%; right: 28%; animation-delay: 1.2s; }
-        .sparkle:nth-child(6) { top: 35%; left: 15%; animation-delay: 0.4s; }
+        .heart-float:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+        .heart-float:nth-child(2) { top: 25%; right: 18%; animation-delay: 0.5s; }
+        .heart-float:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 1s; }
+        .heart-float:nth-child(4) { bottom: 25%; right: 15%; animation-delay: 1.5s; }
+        .heart-float:nth-child(5) { top: 50%; left: 10%; animation-delay: 2s; }
+        .heart-float:nth-child(6) { top: 50%; right: 10%; animation-delay: 2.5s; }
 
-        /* Promise cards */
-        .promises-container {
-            margin: 30px 0;
+        /* Message section */
+        .message {
+            color: #e17055;
+            font-size: 1.4em;
+            line-height: 1.8;
+            margin: 25px 0;
+            animation: fadeIn 2.5s ease-in;
+            font-weight: 500;
         }
 
-        .promise-card {
-            background: linear-gradient(135deg, #ffe5ec 0%, #ffccd5 100%);
-            border-left: 6px solid #ff6b9d;
+        /* Cute message box */
+        .cute-box {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
+            border-left: 6px solid #fd79a8;
             padding: 25px;
-            margin: 20px 0;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.3);
-            animation: slideInPromise 1s ease-out, float-card 3s ease-in-out infinite;
-            transition: all 0.3s;
+            margin: 25px 0;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(253, 121, 168, 0.3);
+            animation: slideInBox 1.5s ease-out, wiggle 4s ease-in-out infinite;
             position: relative;
-            overflow: hidden;
         }
 
-        .promise-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
-            transition: left 0.5s;
-        }
-
-        .promise-card:hover::before {
-            left: 100%;
-        }
-
-        .promise-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(255, 107, 157, 0.4);
-            border-left-color: #e63946;
-        }
-
-        @keyframes float-card {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
-        }
-
-        @keyframes slideInPromise {
+        @keyframes slideInBox {
             from {
-                transform: translateX(-50px);
+                transform: translateX(-100px);
                 opacity: 0;
             }
             to {
@@ -320,60 +259,60 @@
             }
         }
 
-        .promise-card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .promise-card:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        .promise-card:nth-child(4) {
-            animation-delay: 0.6s;
-        }
-
-        .promise-card:nth-child(5) {
-            animation-delay: 0.8s;
-        }
-
-        .promise-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-            animation: bounce-icon 2s ease-in-out infinite;
-        }
-
-        @keyframes bounce-icon {
+        @keyframes wiggle {
             0%, 100% {
-                transform: translateY(0) scale(1);
+                transform: rotate(0deg);
             }
-            50% {
-                transform: translateY(-8px) scale(1.1);
+            25% {
+                transform: rotate(1deg);
+            }
+            75% {
+                transform: rotate(-1deg);
             }
         }
 
-        .promise-text {
-            color: #d81159;
+        .cute-box-text {
+            color: #fd79a8;
             font-size: 1.3em;
             font-weight: 600;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        /* Special message box */
+        .cute-box::before {
+            content: '💝';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5em;
+            animation: spin-gift 4s linear infinite;
+        }
+
+        @keyframes spin-gift {
+            0%, 100% {
+                transform: translateX(-50%) rotate(0deg);
+            }
+            50% {
+                transform: translateX(-50%) rotate(15deg);
+            }
+        }
+
+        /* Special message */
         .special-message {
-            background: linear-gradient(135deg, #ff006e 0%, #ff6b9d 100%);
-            padding: 30px;
-            border-radius: 20px;
+            background: linear-gradient(135deg, #ff7675 0%, #fd79a8 100%);
+            padding: 35px;
+            border-radius: 25px;
             margin: 30px 0;
             color: white;
-            font-size: 1.3em;
-            line-height: 1.8;
-            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.4);
-            animation: pulse-message 3s infinite, shimmer 4s ease-in-out infinite;
+            font-size: 1.4em;
+            line-height: 1.9;
+            box-shadow: 0 12px 35px rgba(255, 118, 117, 0.5);
+            animation: pulse-special 3s infinite, glow-box 3s ease-in-out infinite;
             position: relative;
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        @keyframes pulse-message {
+        @keyframes pulse-special {
             0%, 100% {
                 transform: scale(1);
             }
@@ -382,66 +321,66 @@
             }
         }
 
-        @keyframes shimmer {
+        @keyframes glow-box {
             0%, 100% {
-                box-shadow: 0 10px 30px rgba(255, 0, 110, 0.4);
+                box-shadow: 0 12px 35px rgba(255, 118, 117, 0.5);
             }
             50% {
-                box-shadow: 0 10px 40px rgba(255, 0, 110, 0.6), 0 0 50px rgba(255, 107, 157, 0.3);
+                box-shadow: 0 12px 45px rgba(255, 118, 117, 0.7), 0 0 50px rgba(253, 121, 168, 0.4);
             }
         }
 
         .special-message::before {
-            content: '💕';
+            content: '🧸💕';
             position: absolute;
-            top: -15px;
+            top: -18px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 2em;
-            animation: bounce-heart 1.5s infinite;
+            font-size: 2.2em;
+            animation: bounce-teddy-icon 1.5s infinite;
         }
 
-        @keyframes bounce-heart {
+        @keyframes bounce-teddy-icon {
             0%, 100% {
                 transform: translateX(-50%) translateY(0) scale(1);
             }
             50% {
-                transform: translateX(-50%) translateY(-10px) scale(1.2);
+                transform: translateX(-50%) translateY(-12px) scale(1.15);
             }
         }
 
         /* Button */
-        .promise-button {
-            background: linear-gradient(135deg, #ff6b9d 0%, #e63946 100%);
+        .teddy-button {
+            background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
             color: white;
             border: none;
-            padding: 18px 45px;
+            padding: 20px 50px;
             border-radius: 50px;
-            font-size: 1.2em;
+            font-size: 1.3em;
             cursor: pointer;
             margin-top: 25px;
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+            box-shadow: 0 8px 20px rgba(214, 48, 49, 0.4);
             transition: all 0.3s;
-            animation: fadeIn 2.5s ease-in, pulse-button 2s ease-in-out infinite;
-            font-weight: 600;
+            animation: fadeIn 3s ease-in, pulse-btn 2.5s ease-in-out infinite;
+            font-weight: 700;
         }
 
-        @keyframes pulse-button {
+        @keyframes pulse-btn {
             0%, 100% {
-                box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+                box-shadow: 0 8px 20px rgba(214, 48, 49, 0.4);
             }
             50% {
-                box-shadow: 0 5px 25px rgba(230, 57, 70, 0.6), 0 0 30px rgba(255, 107, 157, 0.3);
+                box-shadow: 0 8px 30px rgba(214, 48, 49, 0.6), 0 0 40px rgba(255, 118, 117, 0.4);
             }
         }
 
-        .promise-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(230, 57, 70, 0.6);
+        .teddy-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(214, 48, 49, 0.6);
         }
 
-        .promise-button:active {
-            transform: translateY(0);
+        .teddy-button:active {
+            transform: translateY(-2px);
         }
 
         /* Music control button */
@@ -449,14 +388,14 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #ff6b9d 0%, #e63946 100%);
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
             border-radius: 50%;
             border: none;
-            font-size: 24px;
+            font-size: 26px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+            box-shadow: 0 6px 18px rgba(214, 48, 49, 0.5);
             transition: all 0.3s;
             z-index: 1000;
             display: flex;
@@ -467,7 +406,7 @@
 
         .music-control:hover {
             transform: scale(1.15) rotate(15deg);
-            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.6);
+            box-shadow: 0 10px 25px rgba(214, 48, 49, 0.7);
         }
 
         /* Cute message popup */
@@ -476,18 +415,18 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
-            padding: 40px;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+            padding: 45px;
             border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
             z-index: 1001;
             text-align: center;
-            max-width: 450px;
-            border: 5px solid #ec4899;
+            max-width: 480px;
+            border: 6px solid #ff7675;
         }
 
         .cute-message.show {
-            animation: popIn 0.5s ease-out forwards;
+            animation: popIn 0.6s ease-out forwards;
         }
 
         .cute-message.hide {
@@ -500,7 +439,7 @@
                 opacity: 0;
             }
             70% {
-                transform: translate(-50%, -50%) scale(1.1) rotate(10deg);
+                transform: translate(-50%, -50%) scale(1.15) rotate(15deg);
             }
             100% {
                 transform: translate(-50%, -50%) scale(1) rotate(0deg);
@@ -520,44 +459,46 @@
         }
 
         .cute-message-text {
-            font-size: 1.5em;
-            color: #d63384;
+            font-size: 1.6em;
+            color: #d63031;
             margin: 20px 0;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            line-height: 1.5;
         }
 
         .cute-message-emoji {
-            font-size: 3.5em;
-            margin-bottom: 10px;
-            animation: bounce 1s infinite;
+            font-size: 4em;
+            margin-bottom: 15px;
+            animation: bounce-emoji 1s infinite;
         }
 
-        @keyframes bounce {
+        @keyframes bounce-emoji {
             0%, 100% {
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
             50% {
-                transform: translateY(-15px);
+                transform: translateY(-20px) scale(1.1);
             }
         }
 
         .cute-message-close {
-            background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+            background: linear-gradient(135deg, #ff7675 0%, #fd79a8 100%);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 1.1em;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1.2em;
             cursor: pointer;
-            margin-top: 15px;
-            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4);
+            margin-top: 20px;
+            box-shadow: 0 6px 18px rgba(255, 118, 117, 0.4);
             transition: all 0.3s;
+            font-weight: 600;
         }
 
         .cute-message-close:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 118, 117, 0.6);
         }
 
         .message-overlay {
@@ -566,7 +507,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             z-index: 1000;
             opacity: 0;
         }
@@ -581,50 +522,80 @@
             }
         }
 
-        /* Hearts explosion */
-        .heart-explosion {
+        /* Teddy rain effect */
+        .teddy-rain {
             position: fixed;
-            font-size: 25px;
+            font-size: 30px;
             pointer-events: none;
-            animation: explode 2s ease-out;
+            animation: fall-teddy 3s ease-out;
             z-index: 100;
         }
 
-        @keyframes explode {
+        @keyframes fall-teddy {
             0% {
-                transform: translate(0, 0) scale(1);
+                transform: translateY(0) rotate(0deg);
                 opacity: 1;
             }
             100% {
-                transform: translate(var(--x), var(--y)) scale(0);
+                transform: translateY(100vh) rotate(360deg);
                 opacity: 0;
             }
         }
 
+        /* Sparkles */
+        .sparkle {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle, #ffd700, #ffed4e);
+            border-radius: 50%;
+            animation: sparkle-shine 2s infinite;
+            box-shadow: 0 0 15px #ffd700;
+        }
+
+        @keyframes sparkle-shine {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5) rotate(180deg);
+            }
+        }
+
+        .sparkle:nth-child(1) { top: 15%; left: 25%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 25%; right: 22%; animation-delay: 0.4s; }
+        .sparkle:nth-child(3) { bottom: 28%; left: 18%; animation-delay: 0.8s; }
+        .sparkle:nth-child(4) { top: 55%; right: 12%; animation-delay: 1.2s; }
+        .sparkle:nth-child(5) { bottom: 18%; right: 25%; animation-delay: 1.6s; }
+        .sparkle:nth-child(6) { top: 40%; left: 12%; animation-delay: 0.6s; }
+        .sparkle:nth-child(7) { bottom: 40%; right: 18%; animation-delay: 1s; }
+
         /* Responsive */
         @media (max-width: 600px) {
             h1 {
-                font-size: 2.2em;
+                font-size: 2.3em;
             }
-            .promise-text {
+            .message, .cute-box-text {
                 font-size: 1.1em;
             }
             .container {
-                padding: 30px 20px;
+                padding: 35px 25px;
             }
             .special-message {
-                font-size: 1.1em;
-                padding: 25px;
+                font-size: 1.2em;
+                padding: 28px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Animated particles background -->
-    <div class="particles" id="particles"></div>
+    <!-- Animated bubbles background -->
+    <div class="bubbles" id="bubbles"></div>
 
-    <!-- Floating rings background -->
-    <div class="ring-bg" id="ringBg"></div>
+    <!-- Floating teddies background -->
+    <div class="teddy-bg" id="teddyBg"></div>
 
     <!-- Music Control Button -->
     <button class="music-control" id="musicToggle" onclick="toggleMusic()">🎵</button>
@@ -640,50 +611,42 @@
         <div class="sparkle"></div>
         <div class="sparkle"></div>
         <div class="sparkle"></div>
+        <div class="sparkle"></div>
 
-        <h1>Happy Promise Day! 💍✨</h1>
-        <p class="subtitle">My heartfelt promises to you, my love</p>
+        <h1>Happy Teddy Day! 🧸💕</h1>
+        <p class="subtitle">You're my cuddliest love!</p>
         
-        <div class="ring-wrapper">
-            <div class="promise-ring" onclick="createHeartExplosion(event)"></div>
+        <div class="teddy-wrapper">
+            <div class="heart-float">💕</div>
+            <div class="heart-float">💖</div>
+            <div class="heart-float">💗</div>
+            <div class="heart-float">💝</div>
+            <div class="heart-float">💓</div>
+            <div class="heart-float">💞</div>
+            <div class="teddy-bear" onclick="createTeddyRain()"></div>
         </div>
 
-        <div class="promises-container">
-            <div class="promise-card">
-                <div class="promise-icon">🤝💕</div>
-                <div class="promise-text">I promise to be there for you in each and every situation, through every high and low</div>
-            </div>
+        <p class="message">
+            Just like a teddy bear brings warmth and comfort,<br>
+            you bring endless joy and love to my life! 🌟
+        </p>
 
-            <div class="promise-card">
-                <div class="promise-icon">❤️♾️</div>
-                <div class="promise-text">I promise to love you always, forever and ever, with all my heart and soul</div>
-            </div>
-
-            <div class="promise-card">
-                <div class="promise-icon">🌟💖</div>
-                <div class="promise-text">I promise to support your dreams and be your biggest cheerleader</div>
-            </div>
-
-            <div class="promise-card">
-                <div class="promise-icon">🛡️💕</div>
-                <div class="promise-text">I promise to protect your heart and never let you feel alone</div>
-            </div>
-
-            <div class="promise-card">
-                <div class="promise-icon">😊💝</div>
-                <div class="promise-text">I promise to make you smile every day and fill your life with happiness</div>
+        <div class="cute-box">
+            <div class="cute-box-text">
+                Every hug from you feels like the softest, warmest teddy bear hug!<br>
+                You're my forever cuddle buddy! 🤗💕
             </div>
         </div>
 
         <div class="special-message">
-            No matter what life throws at us,<br>
-            I'll stand by your side through thick and thin.<br>
-            My love for you is eternal, unconditional, and unbreakable!<br>
-            You're my forever and always! 💖✨
+            I want to hold you close, just like a teddy bear,<br>
+            and never let you go!<br>
+            You're my comfort, my happiness, my everything! 🧸✨<br>
+            Forever snuggling with you, my love! 💖
         </div>
 
-        <button class="promise-button" onclick="showPromiseMessage()">
-            Seal My Promise 💕
+        <button class="teddy-button" onclick="showTeddyMessage()">
+            Send Virtual Hug! 🤗
         </button>
     </div>
 
@@ -691,7 +654,7 @@
         // Background Music Control
         const bgMusic = document.getElementById('bgMusic');
         bgMusic.volume = 0.25;
-        bgMusic.src = "Promise.m4a";
+        bgMusic.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
         
         // Try to play music automatically
         window.addEventListener('load', function() {
@@ -732,109 +695,87 @@
             }
         }
 
-        // Create animated particles
-        const particlesContainer = document.getElementById('particles');
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            particle.style.animationDelay = Math.random() * 5 + 's';
-            particlesContainer.appendChild(particle);
+        // Create animated bubbles
+        const bubblesContainer = document.getElementById('bubbles');
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            const size = Math.random() * 60 + 20;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            bubble.style.left = Math.random() * 100 + '%';
+            bubble.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            bubble.style.animationDelay = Math.random() * 5 + 's';
+            bubblesContainer.appendChild(bubble);
             
             setTimeout(() => {
-                particle.remove();
+                bubble.remove();
             }, 20000);
         }
 
-        // Create particles periodically
-        setInterval(createParticle, 300);
-        for (let i = 0; i < 20; i++) {
-            setTimeout(createParticle, i * 100);
+        // Create bubbles periodically
+        setInterval(createBubble, 400);
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createBubble, i * 150);
         }
 
-        // Create floating rings
-        const ringBg = document.getElementById('ringBg');
-        const ringSymbols = ['💍', '💎', '✨', '💖', '🌹', '💕', '💝'];
+        // Create floating teddies
+        const teddyBg = document.getElementById('teddyBg');
+        const teddySymbols = ['🧸', '🐻', '💝', '💕', '🎀'];
         
-        function createRing() {
-            const ring = document.createElement('div');
-            ring.className = 'ring';
-            ring.textContent = ringSymbols[Math.floor(Math.random() * ringSymbols.length)];
-            ring.style.left = Math.random() * 100 + '%';
-            ring.style.animationDuration = (Math.random() * 5 + 10) + 's';
-            ring.style.animationDelay = Math.random() * 3 + 's';
-            ringBg.appendChild(ring);
+        function createFloatingTeddy() {
+            const teddy = document.createElement('div');
+            teddy.className = 'floating-teddy';
+            teddy.textContent = teddySymbols[Math.floor(Math.random() * teddySymbols.length)];
+            teddy.style.left = Math.random() * 100 + '%';
+            teddy.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            teddy.style.animationDelay = Math.random() * 5 + 's';
+            teddyBg.appendChild(teddy);
             
             setTimeout(() => {
-                ring.remove();
-            }, 15000);
+                teddy.remove();
+            }, 25000);
         }
 
-        // Create rings periodically
-        setInterval(createRing, 800);
+        // Create teddies periodically
+        setInterval(createFloatingTeddy, 1000);
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createFloatingTeddy, i * 500);
+        }
 
-        // Create floating rose petals
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            petal.textContent = '🌹';
-            petal.style.left = Math.random() * 100 + '%';
-            petal.style.animationDuration = (Math.random() * 5 + 8) + 's';
-            petal.style.animationDelay = Math.random() * 3 + 's';
-            ringBg.appendChild(petal);
+        // Teddy rain effect
+        function createTeddyRain() {
+            const teddies = ['🧸', '🐻', '💝', '💕', '💖', '🎀', '💗'];
             
-            setTimeout(() => {
-                petal.remove();
-            }, 13000);
-        }
-
-        // Create petals periodically
-        setInterval(createPetal, 600);
-        for (let i = 0; i < 10; i++) {
-            setTimeout(createPetal, i * 200);
-        }
-
-        // Heart explosion effect
-        function createHeartExplosion(event) {
-            const hearts = ['💕', '💖', '💗', '💝', '💞', '💓'];
-            
-            for (let i = 0; i < 12; i++) {
+            for (let i = 0; i < 20; i++) {
                 setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.className = 'heart-explosion';
-                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                    
-                    const angle = (i / 12) * Math.PI * 2;
-                    const distance = 150;
-                    const x = Math.cos(angle) * distance;
-                    const y = Math.sin(angle) * distance;
-                    
-                    heart.style.setProperty('--x', x + 'px');
-                    heart.style.setProperty('--y', y + 'px');
-                    heart.style.left = event.clientX + 'px';
-                    heart.style.top = event.clientY + 'px';
-                    
-                    document.body.appendChild(heart);
+                    const teddy = document.createElement('div');
+                    teddy.className = 'teddy-rain';
+                    teddy.textContent = teddies[Math.floor(Math.random() * teddies.length)];
+                    teddy.style.left = Math.random() * 100 + '%';
+                    teddy.style.top = '-50px';
+                    teddy.style.animationDuration = (Math.random() * 1 + 2) + 's';
+                    document.body.appendChild(teddy);
                     
                     setTimeout(() => {
-                        heart.remove();
-                    }, 2000);
-                }, i * 50);
+                        teddy.remove();
+                    }, 3000);
+                }, i * 100);
             }
         }
 
-        // Show promise message with cute popup
-        function showPromiseMessage() {
+        // Show teddy message with cute popup
+        function showTeddyMessage() {
             const messages = [
-                { text: "This promise is sealed with my eternal love! 💕", emoji: "💍💖" },
-                { text: "Together forever, through every storm and sunshine! ☀️🌧️", emoji: "🤝💕" },
-                { text: "You have my heart, now and always! ❤️♾️", emoji: "💝✨" },
-                { text: "My promise to you is unbreakable and everlasting! 💪💕", emoji: "🔒💖" },
-                { text: "With you, I'm home. Forever yours, my love! 🏡💕", emoji: "💑✨" },
-                { text: "I choose you, every single day, for the rest of my life! 💕", emoji: "💍💖" },
-                { text: "You're my forever person, my soulmate! 💫💕", emoji: "👫💖" },
-                { text: "I'll love you until the stars fall from the sky! 🌟💕", emoji: "✨💖" }
+                { text: "You're my forever cuddle buddy! 🤗💕", emoji: "🧸💖" },
+                { text: "I'm sending you the biggest virtual hug ever! 🫂💕", emoji: "🤗✨" },
+                { text: "You make my heart as soft as a teddy bear! 💝", emoji: "🧸💗" },
+                { text: "I want to snuggle with you forever and always! 🥰", emoji: "🐻💕" },
+                { text: "You're softer and sweeter than any teddy! 🧸💖", emoji: "💝✨" },
+                { text: "Holding you is better than holding any teddy bear! 🤗", emoji: "🧸💞" },
+                { text: "You're the most huggable person in the world! 💕", emoji: "🤗💖" },
+                { text: "I love you beary much, my teddy! 🐻💕", emoji: "🧸💝" },
+                { text: "You're my favorite person to cuddle with! 🥰", emoji: "🫂💖" }
             ];
             
             const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -849,14 +790,14 @@
             messageBox.innerHTML = `
                 <div class="cute-message-emoji">${randomMessage.emoji}</div>
                 <div class="cute-message-text">${randomMessage.text}</div>
-                <button class="cute-message-close" onclick="closeCuteMessage(this)">Forever & Always! 💖</button>
+                <button class="cute-message-close" onclick="closeCuteMessage(this)">Hugs & Kisses! 💋</button>
             `;
             
             document.body.appendChild(overlay);
             document.body.appendChild(messageBox);
             
-            // Create heart explosion at center
-            createHeartExplosion({ clientX: window.innerWidth / 2, clientY: window.innerHeight / 2 });
+            // Create teddy rain
+            createTeddyRain();
             
             // Auto close after 6 seconds
             setTimeout(() => {
@@ -880,15 +821,16 @@
             }, 500);
         }
 
-        // Easter egg: Click ring 3 times for special animation
-        let ringClickCount = 0;
-        document.querySelector('.promise-ring').addEventListener('click', function() {
-            ringClickCount++;
-            if (ringClickCount === 3) {
-                this.style.animation = 'pulse-ring 0.3s infinite, rotate-ring 1s infinite linear';
+        // Easter egg: Click teddy 5 times for special animation
+        let teddyClickCount = 0;
+        document.querySelector('.teddy-bear').addEventListener('click', function() {
+            teddyClickCount++;
+            if (teddyClickCount === 5) {
+                this.style.animation = 'hug-teddy 0.5s infinite ease-in-out';
+                createTeddyRain();
                 setTimeout(() => {
-                    this.style.animation = 'pulse-ring 2s infinite';
-                    ringClickCount = 0;
+                    this.style.animation = 'hug-teddy 3s infinite ease-in-out';
+                    teddyClickCount = 0;
                 }, 3000);
             }
         });
