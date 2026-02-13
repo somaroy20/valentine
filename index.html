@@ -359,11 +359,13 @@ footer{position:relative;z-index:1;text-align:center;padding:85px 20px 55px;back
 }
 .lyric-line.active{
   color:#fff;
-  font-size:1.2em;
+  font-size:1.25em;
+  font-weight:600;
   border-left-color:var(--rose);
-  background:linear-gradient(90deg,rgba(232,49,90,.12),transparent);
-  text-shadow:0 0 28px rgba(232,49,90,.45);
-  padding-left:32px;
+  background:linear-gradient(90deg,rgba(232,49,90,.18),transparent);
+  text-shadow:0 0 32px rgba(232,49,90,.6);
+  padding:14px 28px 14px 32px;
+  margin:4px 0;
 }
 .lyric-line.past{color:rgba(255,255,255,.42);}
 .lyric-line.hindi{font-style:italic;color:rgba(247,168,184,.28);}
@@ -862,14 +864,9 @@ function syncLyricsNow(){
   const t = bgm.currentTime;
   let activeIdx = -1;
 
-  // Walk backwards from end — find the LAST line whose timestamp <= currentTime
-  // This ensures we never highlight a line before its time
   for(let i = lyricLines.length - 1; i >= 0; i--){
     const lt = parseFloat(lyricLines[i].dataset.t);
-    if(t >= lt){
-      activeIdx = i;
-      break;
-    }
+    if(t >= lt){ activeIdx = i; break; }
   }
 
   if(activeIdx === lastActiveIdx) return;
@@ -881,13 +878,22 @@ function syncLyricsNow(){
     else if(i < activeIdx) line.classList.add('past');
   });
 
-  // Auto-scroll active line to center of panel
+  // Scroll active line into view — centered in the panel
   if(activeIdx >= 0){
     const activeLine = lyricLines[activeIdx];
     const scroll = document.getElementById('lp-lyrics-scroll');
-    const lineTop = activeLine.offsetTop;
-    const scrollCenter = lineTop - scroll.clientHeight / 2 + activeLine.clientHeight / 2;
-    scroll.scrollTo({ top: scrollCenter, behavior: 'smooth' });
+
+    // Use getBoundingClientRect relative to the scroll container for accuracy
+    const scrollRect = scroll.getBoundingClientRect();
+    const lineRect = activeLine.getBoundingClientRect();
+
+    // Position of the line relative to the scroll container's top
+    const lineRelTop = lineRect.top - scrollRect.top + scroll.scrollTop;
+
+    // Target scroll: line sits in the upper-third of the panel (easy to read)
+    const targetScroll = lineRelTop - (scroll.clientHeight * 0.35);
+
+    scroll.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
   }
 }
 
